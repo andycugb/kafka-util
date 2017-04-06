@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <description>Spring common config</description>
+
+    <!-- 为了测试方便,将producer和consumer的配置文件分开配置,在实际工程中可以配置在一个配置文件中,consumer将随spring加载自动启动-->
+    <bean id="kafkaConsumerConfig" class="com.andy.cugb.kafka.config.KafkaConsumerConfig">
+        <property name="bootstrapServers" value="123.126.62.116:9092"/>
+        <property name="groupId" value="test"/>
+        <property name="valueType"
+                  value="com.andy.cugb.kafka.dispatcher.wrapper.DispatcherWrapper"/>
+        <property name="keyType" value="java.lang.String"/>
+    </bean>
+
+    <bean id="businessWrapperTest" class="com.andy.cugb.kafka.dispatcher.BusinessWrapperTest"/>
+    <bean id="dispatcherWrapperTest" class="com.andy.cugb.kafka.dispatcher.DispatcherWrapperTest"/>
+    <bean id="dispatcherConsumer" class="com.andy.cugb.kafka.dispatcher.DispatcherConsumerClient">
+        <constructor-arg index="0" ref="kafkaConsumerConfig"/>
+        <constructor-arg index="1">
+            <list>
+                <value>dispatch-test</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <map>
+                <entry key="productKey1" value-ref="businessWrapperTest"/>
+                <entry key="productKey2" value-ref="dispatcherWrapperTest"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>

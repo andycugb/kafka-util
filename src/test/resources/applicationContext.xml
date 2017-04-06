@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <description>Spring common config</description>
+
+    <bean id="kafkaProducerConfig" class="com.andy.cugb.kafka.config.KafkaProducerConfig">
+        <!--<property name="bootservers" value="10.211.55.5:9092"/>-->
+        <property name="bootstrapServers" value="123.126.62.116:9092"/>
+        <!--<property name="kryobuffersize" value="1024000"/>-->
+        <!--<property name="keyserializer"-->
+        <!--value="org.apache.kafka.common.serialization.StringSerializer"/>-->
+        <!--<property name="valueserializer"-->
+        <!--value="com.netease.ncuc.kafka.serializer.KryoKafkaSerialize"/>-->
+    </bean>
+
+    <bean id="kafkaProducerClient" class="com.andy.cugb.kafka.KafkaProducerClient">
+        <property name="producerConfig" ref="kafkaProducerConfig"/>
+    </bean>
+
+</beans>

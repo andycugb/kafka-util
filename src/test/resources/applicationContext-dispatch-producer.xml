@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <description>Spring common config</description>
+
+    <!-- 为了测试方便,将producer和consumer的配置文件分开配置,在实际工程中可以配置在一个配置文件中,consumer将随spring加载自动启动-->
+    <bean id="kafkaProducerConfig" class="com.andy.cugb.kafka.config.KafkaProducerConfig">
+        <property name="bootstrapServers" value="123.126.62.116:9092"/>
+    </bean>
+
+    <bean id="kafkaDispatcherProducer"
+          class="com.andy.cugb.kafka.dispatcher.DispatcherProducerClient">
+        <property name="producerConfig" ref="kafkaProducerConfig"/>
+    </bean>
+</beans>
